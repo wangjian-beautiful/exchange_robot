@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjs.hedge.crud.dao.robot.ExHedgeTradeMapper">
+  <resultMap id="BaseResultMap" type="com.bjs.hedge.crud.model.ExHedgeTrade">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="trade_id" jdbcType="VARCHAR" property="tradeId" />
+    <result column="symbol" jdbcType="VARCHAR" property="symbol" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="platform" jdbcType="VARCHAR" property="platform" />
+    <result column="side" jdbcType="VARCHAR" property="side" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="qty" jdbcType="DECIMAL" property="qty" />
+    <result column="quoteQty" jdbcType="DECIMAL" property="quoteqty" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="commission" jdbcType="DECIMAL" property="commission" />
+    <result column="commissionAsset" jdbcType="DECIMAL" property="commissionasset" />
+  </resultMap>
+</mapper>

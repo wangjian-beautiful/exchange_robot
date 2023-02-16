@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kline.mapper.TradeScheduleMapper">
+    
+    <resultMap type="TradeSchedule" id="TradeScheduleResult">
+        <result property="id"    column="id"    />
+        <result property="accessKey"    column="access_key"    />
+        <result property="securityKey"    column="security_key"    />
+        <result property="currency"    column="currency"    />
+        <result property="currencyAlias"    column="currency_alias"    />
+        <result property="currencyTrail"    column="currency_trail"    />
+        <result property="status"    column="status"    />
+        <result property="type"    column="type"    />
+        <result property="followType"    column="follow_type"    />
+        <result property="followMarket"    column="follow_market"    />
+        <result property="fluctuationRatio"    column="fluctuation_ratio"    />
+        <result property="duration"    column="duration"    />
+        <result property="handicapPriceGap"    column="handicap_price_gap"    />
+        <result property="level1PriceGap"    column="level1_price_gap"    />
+        <result property="activeWavePrice"    column="active_wave_price"    />
+        <result property="activeDuration"    column="active_duration"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="password"    column="password"    />
+        <result property="serverUrl"    column="server_url"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="userName"    column="user_name"    />
+        <result property="minPrice"    column="min_price"    />
+        <result property="maxPrice"    column="max_price"    />
+        <result property="channel"    column="channel"    />
+        <result property="fuid"    column="fuid"    />
+        <result property="priceCount"    column="price_count"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="handicapRandomFold"    column="handicap_random_fold"    />
+        <result property="handicapShape"    column="handicap_shape"    />
+        <result property="randomBegin"    column="random_begin"    />
+        <result property="randomEnd"    column="random_end"    />
+        <result property="klineRandomFold"    column="kline_random_fold"    />
+        <result property="countTrailScale"    column="count_trail_scale"    />
+        <result property="maxAmount"    column="max_amount"    />
+        <result property="minAmount"    column="min_amount"    />
+        <result property="priceInterval"    column="price_interval"    />
+        <result property="priceMaxSum"    column="price_max_sum"    />
+        <result property="priceTrailScale"    column="price_trail_scale"    />
+        <result property="query"    column="query"    />
+        <result property="refreshTime"    column="refresh_time"    />
+        <result property="serverIndex"    column="server_index"    />
+    </resultMap>
+
+    <sql id="selectTradeScheduleVo">
+        select id, access_key, security_key, currency, currency_alias, currency_trail, status, type, follow_type, follow_market, fluctuation_ratio, duration, handicap_price_gap, level1_price_gap, active_wave_price, active_duration, end_time, password, server_url, start_time, update_time, user_name, min_price, max_price, channel, fuid, price_count, create_time, handicap_random_fold, handicap_shape, random_begin, random_end, kline_random_fold, count_trail_scale, max_amount, min_amount, price_interval, price_max_sum, price_trail_scale, query, refresh_time, server_index from trade_schedule
+    </sql>
+
+    <select id="selectTradeScheduleList" parameterType="TradeSchedule" resultMap="TradeScheduleResult">
+        <include refid="selectTradeScheduleVo"/>
+        <where>  
+            <if test="accessKey != null  and accessKey != ''"> and access_key = #{accessKey}</if>
+            <if test="securityKey != null  and securityKey != ''"> and security_key = #{securityKey}</if>
+            <if test="currency != null  and currency != ''"> and currency = #{currency}</if>
+            <if test="currencyAlias != null  and currencyAlias != ''"> and currency_alias = #{currencyAlias}</if>
+            <if test="currencyTrail != null  and currencyTrail != ''"> and currency_trail = #{currencyTrail}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="followType != null  and followType != ''"> and follow_type = #{followType}</if>
+            <if test="followMarket != null  and followMarket != ''"> and follow_market = #{followMarket}</if>
+            <if test="fluctuationRatio != null "> and fluctuation_ratio = #{fluctuationRatio}</if>
+            <if test="duration != null "> and duration = #{duration}</if>
+            <if test="handicapPriceGap != null "> and handicap_price_gap = #{handicapPriceGap}</if>
+            <if test="level1PriceGap != null "> and level1_price_gap = #{level1PriceGap}</if>
+            <if test="activeWavePrice != null "> and active_wave_price = #{activeWavePrice}</if>
+            <if test="activeDuration != null "> and active_duration = #{activeDuration}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="password != null  and password != ''"> and password = #{password}</if>
+            <if test="serverUrl != null  and serverUrl != ''"> and server_url = #{serverUrl}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="minPrice != null "> and min_price = #{minPrice}</if>
+            <if test="maxPrice != null "> and max_price = #{maxPrice}</if>
+            <if test="channel != null  and channel != ''"> and channel = #{channel}</if>
+            <if test="fuid != null "> and fuid = #{fuid}</if>
+            <if test="priceCount != null "> and price_count = #{priceCount}</if>
+            <if test="handicapRandomFold != null "> and handicap_random_fold = #{handicapRandomFold}</if>
+            <if test="handicapShape != null "> and handicap_shape = #{handicapShape}</if>
+            <if test="randomBegin != null "> and random_begin = #{randomBegin}</if>
+            <if test="randomEnd != null "> and random_end = #{randomEnd}</if>
+            <if test="klineRandomFold != null "> and kline_random_fold = #{klineRandomFold}</if>
+            <if test="countTrailScale != null "> and count_trail_scale = #{countTrailScale}</if>
+            <if test="maxAmount != null "> and max_amount = #{maxAmount}</if>
+            <if test="minAmount != null "> and min_amount = #{minAmount}</if>
+            <if test="priceInterval != null "> and price_interval = #{priceInterval}</if>
+            <if test="priceMaxSum != null "> and price_max_sum = #{priceMaxSum}</if>
+            <if test="priceTrailScale != null "> and price_trail_scale = #{priceTrailScale}</if>
+            <if test="query != null "> and query = #{query}</if>
+            <if test="refreshTime != null "> and refresh_time = #{refreshTime}</if>
+            <if test="serverIndex != null "> and server_index = #{serverIndex}</if>
+        </where>
+    </select>
+    
+    <select id="selectTradeScheduleById" parameterType="Long" resultMap="TradeScheduleResult">
+        <include refid="selectTradeScheduleVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTradeSchedule" parameterType="TradeSchedule" useGeneratedKeys="true" keyProperty="id">
+        insert into trade_schedule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accessKey != null">access_key,</if>
+            <if test="securityKey != null">security_key,</if>
+            <if test="currency != null">currency,</if>
+            <if test="currencyAlias != null">currency_alias,</if>
+            <if test="currencyTrail != null">currency_trail,</if>
+            <if test="status != null">status,</if>
+            <if test="type != null">type,</if>
+            <if test="followType != null">follow_type,</if>
+            <if test="followMarket != null">follow_market,</if>
+            <if test="fluctuationRatio != null">fluctuation_ratio,</if>
+            <if test="duration != null">duration,</if>
+            <if test="handicapPriceGap != null">handicap_price_gap,</if>
+            <if test="level1PriceGap != null">level1_price_gap,</if>
+            <if test="activeWavePrice != null">active_wave_price,</if>
+            <if test="activeDuration != null">active_duration,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="password != null">password,</if>
+            <if test="serverUrl != null">server_url,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="minPrice != null">min_price,</if>
+            <if test="maxPrice != null">max_price,</if>
+            <if test="channel != null">channel,</if>
+            <if test="fuid != null">fuid,</if>
+            <if test="priceCount != null">price_count,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="handicapRandomFold != null">handicap_random_fold,</if>
+            <if test="handicapShape != null">handicap_shape,</if>
+            <if test="randomBegin != null">random_begin,</if>
+            <if test="randomEnd != null">random_end,</if>
+            <if test="klineRandomFold != null">kline_random_fold,</if>
+            <if test="countTrailScale != null">count_trail_scale,</if>
+            <if test="maxAmount != null">max_amount,</if>
+            <if test="minAmount != null">min_amount,</if>
+            <if test="priceInterval != null">price_interval,</if>
+            <if test="priceMaxSum != null">price_max_sum,</if>
+            <if test="priceTrailScale != null">price_trail_scale,</if>
+            <if test="query != null">query,</if>
+            <if test="refreshTime != null">refresh_time,</if>
+            <if test="serverIndex != null">server_index,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="accessKey != null">#{accessKey},</if>
+            <if test="securityKey != null">#{securityKey},</if>
+            <if test="currency != null">#{currency},</if>
+            <if test="currencyAlias != null">#{currencyAlias},</if>
+            <if test="currencyTrail != null">#{currencyTrail},</if>
+            <if test="status != null">#{status},</if>
+            <if test="type != null">#{type},</if>
+            <if test="followType != null">#{followType},</if>
+            <if test="followMarket != null">#{followMarket},</if>
+            <if test="fluctuationRatio != null">#{fluctuationRatio},</if>
+            <if test="duration != null">#{duration},</if>
+            <if test="handicapPriceGap != null">#{handicapPriceGap},</if>
+            <if test="level1PriceGap != null">#{level1PriceGap},</if>
+            <if test="activeWavePrice != null">#{activeWavePrice},</if>
+            <if test="activeDuration != null">#{activeDuration},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="password != null">#{password},</if>
+            <if test="serverUrl != null">#{serverUrl},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="minPrice != null">#{minPrice},</if>
+            <if test="maxPrice != null">#{maxPrice},</if>
+            <if test="channel != null">#{channel},</if>
+            <if test="fuid != null">#{fuid},</if>
+            <if test="priceCount != null">#{priceCount},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="handicapRandomFold != null">#{handicapRandomFold},</if>
+            <if test="handicapShape != null">#{handicapShape},</if>
+            <if test="randomBegin != null">#{randomBegin},</if>
+            <if test="randomEnd != null">#{randomEnd},</if>
+            <if test="klineRandomFold != null">#{klineRandomFold},</if>
+            <if test="countTrailScale != null">#{countTrailScale},</if>
+            <if test="maxAmount != null">#{maxAmount},</if>
+            <if test="minAmount != null">#{minAmount},</if>
+            <if test="priceInterval != null">#{priceInterval},</if>
+            <if test="priceMaxSum != null">#{priceMaxSum},</if>
+            <if test="priceTrailScale != null">#{priceTrailScale},</if>
+            <if test="query != null">#{query},</if>
+            <if test="refreshTime != null">#{refreshTime},</if>
+            <if test="serverIndex != null">#{serverIndex},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTradeSchedule" parameterType="TradeSchedule">
+        update trade_schedule
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="accessKey != null">access_key = #{accessKey},</if>
+            <if test="securityKey != null">security_key = #{securityKey},</if>
+            <if test="currency != null">currency = #{currency},</if>
+            <if test="currencyAlias != null">currency_alias = #{currencyAlias},</if>
+            <if test="currencyTrail != null">currency_trail = #{currencyTrail},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="followType != null">follow_type = #{followType},</if>
+            <if test="followMarket != null">follow_market = #{followMarket},</if>
+            <if test="fluctuationRatio != null">fluctuation_ratio = #{fluctuationRatio},</if>
+            <if test="duration != null">duration = #{duration},</if>
+            <if test="handicapPriceGap != null">handicap_price_gap = #{handicapPriceGap},</if>
+            <if test="level1PriceGap != null">level1_price_gap = #{level1PriceGap},</if>
+            <if test="activeWavePrice != null">active_wave_price = #{activeWavePrice},</if>
+            <if test="activeDuration != null">active_duration = #{activeDuration},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="serverUrl != null">server_url = #{serverUrl},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="minPrice != null">min_price = #{minPrice},</if>
+            <if test="maxPrice != null">max_price = #{maxPrice},</if>
+            <if test="channel != null">channel = #{channel},</if>
+            <if test="fuid != null">fuid = #{fuid},</if>
+            <if test="priceCount != null">price_count = #{priceCount},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="handicapRandomFold != null">handicap_random_fold = #{handicapRandomFold},</if>
+            <if test="handicapShape != null">handicap_shape = #{handicapShape},</if>
+            <if test="randomBegin != null">random_begin = #{randomBegin},</if>
+            <if test="randomEnd != null">random_end = #{randomEnd},</if>
+            <if test="klineRandomFold != null">kline_random_fold = #{klineRandomFold},</if>
+            <if test="countTrailScale != null">count_trail_scale = #{countTrailScale},</if>
+            <if test="maxAmount != null">max_amount = #{maxAmount},</if>
+            <if test="minAmount != null">min_amount = #{minAmount},</if>
+            <if test="priceInterval != null">price_interval = #{priceInterval},</if>
+            <if test="priceMaxSum != null">price_max_sum = #{priceMaxSum},</if>
+            <if test="priceTrailScale != null">price_trail_scale = #{priceTrailScale},</if>
+            <if test="query != null">query = #{query},</if>
+            <if test="refreshTime != null">refresh_time = #{refreshTime},</if>
+            <if test="serverIndex != null">server_index = #{serverIndex},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTradeScheduleById" parameterType="Long">
+        delete from trade_schedule where id = #{id}
+    </delete>
+
+    <delete id="deleteTradeScheduleByIds" parameterType="String">
+        delete from trade_schedule where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增K线机器人配置')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-schedule-add">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">用户access_key：</label>
+                <div class="col-sm-8">
+                    <input name="accessKey" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">用户security_key：</label>
+                <div class="col-sm-8">
+                    <input name="securityKey" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">交易对：</label>
+                <div class="col-sm-8">
+                    <input name="currency" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">交易对别名：</label>
+                <div class="col-sm-8">
+                    <input name="currencyAlias" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">跟随的交易对-可单一交易对，也可多个交易对乘法计算：</label>
+                <div class="col-sm-8">
+                    <input name="currencyTrail" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">跟随交易所类型1火币 2ZB 3组合计算：</label>
+                <div class="col-sm-8">
+                    <input name="followMarket" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">波动率-波动率跟随有效：</label>
+                <div class="col-sm-8">
+                    <input name="fluctuationRatio" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">交易间隔：</label>
+                <div class="col-sm-8">
+                    <input name="duration" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">robot新盘口配置，盘口价格间隔，默认为1;：</label>
+                <div class="col-sm-8">
+                    <input name="handicapPriceGap" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">买卖一档与行情价间隔：</label>
+                <div class="col-sm-8">
+                    <input name="level1PriceGap" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">价格波动，主动下单：</label>
+                <div class="col-sm-8">
+                    <input name="activeWavePrice" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">主动下单的时间间隔，避免下单速率太快：</label>
+                <div class="col-sm-8">
+                    <input name="activeDuration" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">交易持续时间：</label>
+                <div class="col-sm-8">
+                    <input name="endTime" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">密码配置：</label>
+                <div class="col-sm-8">
+                    <input name="password" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">交易API地址：</label>
+                <div class="col-sm-8">
+                    <input name="serverUrl" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">开始时间：</label>
+                <div class="col-sm-8">
+                    <input name="startTime" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">用户名：</label>
+                <div class="col-sm-8">
+                    <input name="userName" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">最低价格：</label>
+                <div class="col-sm-8">
+                    <input name="minPrice" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">最高价格：</label>
+                <div class="col-sm-8">
+                    <input name="maxPrice" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">交易所备注：</label>
+                <div class="col-sm-8">
+                    <input name="channel" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">机器人用户ID-在业务系统中的用户ID trade刷量机器人时配置：</label>
+                <div class="col-sm-8">
+                    <input name="fuid" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">交易对盘口纵深数量，例如20 trade刷量机器人时配置：</label>
+                <div class="col-sm-8">
+                    <input name="priceCount" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">robot新盘口配置，价格档位下单数量随机数乘以的倍数，默认为1：</label>
+                <div class="col-sm-8">
+                    <input name="handicapRandomFold" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">robot盘口配置类型，0表示抛物线形，1表示线性，默认为0：</label>
+                <div class="col-sm-8">
+                    <input name="handicapShape" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">随机数区间的开始值，深度图形状为1线性时有效：</label>
+                <div class="col-sm-8">
+                    <input name="randomBegin" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">随机数区间的结束值，深度图形状为1线性时有效：</label>
+                <div class="col-sm-8">
+                    <input name="randomEnd" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">robot新盘口配置，K线下单随机数倍数，默认为1：</label>
+                <div class="col-sm-8">
+                    <input name="klineRandomFold" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">：</label>
+                <div class="col-sm-8">
+                    <input name="countTrailScale" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">：</label>
+                <div class="col-sm-8">
+                    <input name="maxAmount" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">：</label>
+                <div class="col-sm-8">
+                    <input name="minAmount" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">：</label>
+                <div class="col-sm-8">
+                    <input name="priceInterval" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">：</label>
+                <div class="col-sm-8">
+                    <input name="priceMaxSum" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">：</label>
+                <div class="col-sm-8">
+                    <input name="priceTrailScale" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">：</label>
+                <div class="col-sm-8">
+                    <input name="query" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">：</label>
+                <div class="col-sm-8">
+                    <input name="refreshTime" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">执行的服务编号：</label>
+                <div class="col-sm-8">
+                    <input name="serverIndex" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "klineConfig/schedule"
+        $("#form-schedule-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-schedule-add').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

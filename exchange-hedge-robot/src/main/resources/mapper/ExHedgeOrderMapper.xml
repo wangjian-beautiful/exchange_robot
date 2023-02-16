@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjs.hedge.crud.dao.robot.ExHedgeOrderMapper">
+  <resultMap id="BaseResultMap" type="com.bjs.hedge.crud.model.ExHedgeOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="hedge_order_id" jdbcType="VARCHAR" property="hedgeOrderId" />
+    <result column="opponent_order_symbol" jdbcType="VARCHAR" property="opponentOrderSymbol" />
+    <result column="hedge_order_symbol" jdbcType="VARCHAR" property="hedgeOrderSymbol" />
+    <result column="hedge_platform" jdbcType="VARCHAR" property="hedgePlatform" />
+    <result column="hedge_user_id" jdbcType="VARCHAR" property="hedgeUserId" />
+    <result column="hedge_side" jdbcType="CHAR" property="hedgeSide" />
+    <result column="hedge_update_time" jdbcType="TIMESTAMP" property="hedgeUpdateTime" />
+    <result column="hedge_create_time" jdbcType="TIMESTAMP" property="hedgeCreateTime" />
+    <result column="hedge_price" jdbcType="DECIMAL" property="hedgePrice" />
+    <result column="hedge_volume" jdbcType="DECIMAL" property="hedgeVolume" />
+    <result column="hedge_fee_rate_maker" jdbcType="DECIMAL" property="hedgeFeeRateMaker" />
+    <result column="hedge_fee_rate_taker" jdbcType="DECIMAL" property="hedgeFeeRateTaker" />
+    <result column="hedge_fee" jdbcType="DECIMAL" property="hedgeFee" />
+    <result column="hedge_deal_avg_price" jdbcType="DECIMAL" property="hedgeDealAvgPrice" />
+    <result column="hedge_deal_money" jdbcType="DECIMAL" property="hedgeDealMoney" />
+    <result column="hedge_deal_volume" jdbcType="DECIMAL" property="hedgeDealVolume" />
+    <result column="hedge_status" jdbcType="VARCHAR" property="hedgeStatus" />
+    <result column="hedge_res" jdbcType="VARCHAR" property="hedgeRes" />
+    <result column="opponent_order_table" jdbcType="VARCHAR" property="opponentOrderTable" />
+    <result column="opponent_order_table_unique_id" jdbcType="BIGINT" property="opponentOrderTableUniqueId" />
+    <result column="opponent_side" jdbcType="CHAR" property="opponentSide" />
+    <result column="opponent_deal_volume" jdbcType="DECIMAL" property="opponentDealVolume" />
+    <result column="opponent_deal_money" jdbcType="DECIMAL" property="opponentDealMoney" />
+    <result column="opponent_avg_price" jdbcType="DECIMAL" property="opponentAvgPrice" />
+    <result column="opponent_create_time" jdbcType="TIMESTAMP" property="opponentCreateTime" />
+    <result column="opponent_fee" jdbcType="DECIMAL" property="opponentFee" />
+    <result column="hedge_order_detail" jdbcType="LONGVARCHAR" property="hedgeOrderDetail" />
+
+    <result column="profit" jdbcType="DECIMAL" property="profit" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,1 @@
+package com.bjs.hedge.framework.platform.mexc.exapple.spot.websocket;

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjs.hedge.crud.dao.robot.HedgeOriginMapper">
+  <resultMap id="BaseResultMap" type="com.bjs.hedge.crud.model.HedgeOrigin">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="origin_table" jdbcType="VARCHAR" property="originTable" />
+    <result column="origin_id" jdbcType="BIGINT" property="originId" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="volume" jdbcType="DECIMAL" property="volume" />
+    <result column="symbol" jdbcType="VARCHAR" property="symbol" />
+    <result column="side" jdbcType="VARCHAR" property="side" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="betting" jdbcType="DECIMAL" property="betting" />
+  </resultMap>
+</mapper>

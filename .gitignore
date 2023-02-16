@@ -1,0 +1,7 @@
+/.idea/
+/target/
+/.idea/
+/bjs-hedge-robot/target/
+/bjs-hedge-robot/bjs-hedge-robot.iml
+/bjs-robot.iml
+.gitlab-ci.yml

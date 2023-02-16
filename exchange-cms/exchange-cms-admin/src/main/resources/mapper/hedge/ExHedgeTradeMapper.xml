@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hedge.mapper.ExHedgeTradeMapper">
+    
+    <resultMap type="ExHedgeTrade" id="ExHedgeTradeResult">
+        <result property="id"    column="id"    />
+        <result property="tradeId"    column="trade_id"    />
+        <result property="symbol"    column="symbol"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="platform"    column="platform"    />
+        <result property="side"    column="side"    />
+        <result property="price"    column="price"    />
+        <result property="qty"    column="qty"    />
+        <result property="quoteQty"    column="quoteQty"    />
+        <result property="time"    column="time"    />
+        <result property="commission"    column="commission"    />
+        <result property="commissionAsset"    column="commissionAsset"    />
+    </resultMap>
+
+    <sql id="selectExHedgeTradeVo">
+        select id, trade_id, symbol, order_id, platform, side, price, qty, quoteQty, time, commission, commissionAsset from ex_hedge_trade
+    </sql>
+
+    <select id="selectExHedgeTradeList" parameterType="ExHedgeTrade" resultMap="ExHedgeTradeResult">
+        <include refid="selectExHedgeTradeVo"/>
+        <where>  
+            <if test="tradeId != null  and tradeId != ''"> and trade_id like concat('%', #{tradeId}, '%')</if>
+            <if test="symbol != null  and symbol != ''"> and symbol = #{symbol}</if>
+            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
+            <if test="platform != null  and platform != ''"> and platform = #{platform}</if>
+            <if test="side != null  and side != ''"> and side = #{side}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="qty != null "> and qty = #{qty}</if>
+            <if test="quoteQty != null "> and quoteQty = #{quoteQty}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="commission != null "> and commission = #{commission}</if>
+            <if test="commissionAsset != null "> and commissionAsset = #{commissionAsset}</if>
+        </where>
+        order by `time` DESC
+    </select>
+    
+    <select id="selectExHedgeTradeById" parameterType="Long" resultMap="ExHedgeTradeResult">
+        <include refid="selectExHedgeTradeVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertExHedgeTrade" parameterType="ExHedgeTrade">
+        insert into ex_hedge_trade
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="tradeId != null">trade_id,</if>
+            <if test="symbol != null">symbol,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="platform != null">platform,</if>
+            <if test="side != null">side,</if>
+            <if test="price != null">price,</if>
+            <if test="qty != null">qty,</if>
+            <if test="quoteQty != null">quoteQty,</if>
+            <if test="time != null">time,</if>
+            <if test="commission != null">commission,</if>
+            <if test="commissionAsset != null">commissionAsset,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="tradeId != null">#{tradeId},</if>
+            <if test="symbol != null">#{symbol},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="platform != null">#{platform},</if>
+            <if test="side != null">#{side},</if>
+            <if test="price != null">#{price},</if>
+            <if test="qty != null">#{qty},</if>
+            <if test="quoteQty != null">#{quoteQty},</if>
+            <if test="time != null">#{time},</if>
+            <if test="commission != null">#{commission},</if>
+            <if test="commissionAsset != null">#{commissionAsset},</if>
+         </trim>
+    </insert>
+
+    <update id="updateExHedgeTrade" parameterType="ExHedgeTrade">
+        update ex_hedge_trade
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tradeId != null">trade_id = #{tradeId},</if>
+            <if test="symbol != null">symbol = #{symbol},</if>
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="platform != null">platform = #{platform},</if>
+            <if test="side != null">side = #{side},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="qty != null">qty = #{qty},</if>
+            <if test="quoteQty != null">quoteQty = #{quoteQty},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="commission != null">commission = #{commission},</if>
+            <if test="commissionAsset != null">commissionAsset = #{commissionAsset},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteExHedgeTradeById" parameterType="Long">
+        delete from ex_hedge_trade where id = #{id}
+    </delete>
+
+    <delete id="deleteExHedgeTradeByIds" parameterType="String">
+        delete from ex_hedge_trade where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

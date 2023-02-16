@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+ <head> 
+  <meta charset="UTF-8" /> 
+  <title>Table</title> 
+  <link rel="stylesheet" href="../webjars/plugins/layui/css/layui.css" media="all" /> 
+  <link rel="stylesheet" href="../webjars/css/global.css" media="all" /> 
+  <link rel="stylesheet" href="../webjars/plugins/font-awesome/css/font-awesome.min.css" /> 
+  <link rel="stylesheet" href="../webjars/css/table.css" /> 
+ </head> 
+ <body> 
+  <div class="admin-main"> 
+   <form class="layui-form" action="../admin/user/add">  
+    <div class="layui-form-item">
+		<label class="layui-form-label">用户名</label>
+		<div class="layui-input-block">
+		   <input type="text" name="name" placeholder="中文、字母、数字、下划线" lay-verify="required" autocomplete="off" class="layui-input">
+		</div>
+	</div> 
+    <div class="layui-form-item">
+		<label class="layui-form-label">密码</label>
+		<div class="layui-input-block">
+		   <input type="text" name="password" placeholder="密码" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+    <div class="layui-form-item">
+		<label class="layui-form-label">操控交易对</label>
+		<div class="layui-input-block">
+		   <input type="text" name="gantEnvs" placeholder="操控交易对"  autocomplete="off" class="layui-input">
+		</div>
+	</div>
+    <div class="layui-form-item">
+     <div class="layui-input-block"> 
+        <input type="button"  class="layui-btn J_ajaxSubmit"   onSuccessJumpurl="./list.html" value="保存"/>
+        <input type="reset" class="layui-btn layui-btn-primary" value="重置"/>
+     </div> 
+    </div> 
+   </form> 
+  </div> 
+  <script type="text/javascript" src="../webjars/plugins/layui/layui.js"></script> 
+  <script type="text/javascript" src="../webjars/js/common.js?v20180420"></script>  
+  <script type="text/javascript">
+  function onFinishCallback(){
+	  //layui.jquery('#authlist input').show();
+	  layui.form().render();
+  }  
+  </script>
+ </body>
+</html>

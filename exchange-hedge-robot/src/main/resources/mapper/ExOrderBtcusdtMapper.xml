@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjs.hedge.crud.dao.exchange.ExOrderBtcusdtMapper">
+  <resultMap id="BaseResultMap" type="com.bjs.hedge.crud.model.ExOrderBtcusdt">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="side" jdbcType="CHAR" property="side" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="volume" jdbcType="DECIMAL" property="volume" />
+    <result column="fee_rate_maker" jdbcType="DOUBLE" property="feeRateMaker" />
+    <result column="fee_rate_taker" jdbcType="DOUBLE" property="feeRateTaker" />
+    <result column="fee" jdbcType="DECIMAL" property="fee" />
+    <result column="fee_coin_rate" jdbcType="DOUBLE" property="feeCoinRate" />
+    <result column="deal_volume" jdbcType="DECIMAL" property="dealVolume" />
+    <result column="deal_money" jdbcType="DECIMAL" property="dealMoney" />
+    <result column="avg_price" jdbcType="DECIMAL" property="avgPrice" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
+    <result column="source" jdbcType="TINYINT" property="source" />
+    <result column="order_type" jdbcType="TINYINT" property="orderType" />
+    <result column="mtime" jdbcType="TIMESTAMP" property="mtime" />
+  </resultMap>
+</mapper>

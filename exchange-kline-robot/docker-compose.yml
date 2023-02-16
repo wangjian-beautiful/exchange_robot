@@ -1,0 +1,19 @@
+version: '2'
+services:
+  robot:
+    build:
+      context: .
+    restart: "no"
+    container_name: robot-doc
+    hostname: robot
+    image: robot:doc
+    ports:
+      - 8981:8981
+      - 18981:18981
+    networks:
+      - custom_net
+
+networks:
+  custom_net:
+    external:
+      name: exchange_net

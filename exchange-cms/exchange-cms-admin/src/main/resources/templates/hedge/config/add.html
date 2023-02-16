@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增对冲机器人配置')" />
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-config-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">币对：</label>
+            <div class="col-sm-8">
+                <input name="symbol" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">金币所币对：</label>
+            <div class="col-sm-8">
+                <input name="symbolBjs" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">交易平台：</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="tradePlatform">
+                    <option value="币安">币安</option>
+                    <option value="抹茶">抹茶</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">下单类型：</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="binanceOrderType">
+                    <option value="LIMIT">限价</option>
+                    <option value="MARKET">市价</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单方式：</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="timeinForceStatus">
+                    <option value="GTC">成交为止</option>
+                    <option value="IOC">无法立即成交的部分就撤销</option>
+                    <option value="FOK">无法全部立即成交就撤销</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">是否启动：</label>
+            <div class="col-sm-9">
+                <label class="radio-box">
+                    <input type="radio" checked="" value="START" id="optionsRadios1" name="status">是</label>
+                <label class="radio-box">
+                    <input type="radio" value="STOP" id="optionsRadios2" name="status">否</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">对冲阈值：</label>
+            <div class="col-sm-8">
+                <input name="hedgeOut" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">手机号 英文逗号分割,：</label>
+            <div class="col-sm-8">
+                <input name="mobile" class="form-control" type="text">
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+        var prefix = ctx + "hedge/config"
+        $("#form-config-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-config-add').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

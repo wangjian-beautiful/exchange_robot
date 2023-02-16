@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('对冲订单列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>对手币对：</label>
+                                <input type="text" name="opponentOrderSymbol"/>
+                            </li>
+                            <li>
+                                <label>对冲币对：</label>
+                                <input type="text" name="hedgeOrderSymbol"/>
+                            </li>
+                            <li>
+                                <label>对冲平台：</label>
+                                <input type="text" name="hedgePlatform"/>
+                            </li>
+                            <li>
+                                <label>对冲买卖方向：</label>
+                                <input type="text" name="hedgeSide"/>
+                            </li>
+                            <li>
+                                <label>对手订单所在表：</label>
+                                <input type="text" name="opponentOrderTable"/>
+                            </li>
+                            <li>
+                                <label>对手订单所在表唯一ID：</label>
+                                <input type="text" name="opponentOrderTableUniqueId"/>
+                            </li>
+
+                            <li>
+                                <label>对手订单创建时间：</label>
+                                <input type="text" class="time-input" placeholder="请选择对手订单创建时间" name="opponentCreateTime"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="hedge:order:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="hedge:order:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="hedge:order:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="hedge:order:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('hedge:order:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('hedge:order:remove')}]];
+        var prefix = ctx + "hedge/order";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "对冲订单",
+                detailView: true,
+				onExpandRow : function(index, row, $detail) {
+					initChildTable(index, row, $detail);
+				},
+                columns: [{
+                    checkbox: true
+                },
+                   {
+                    field: 'hedgeOrderId',
+                    title: '对冲订单ID',
+                    visible: false
+                },
+                {
+                    field: 'opponentOrderSymbol',
+                    title: '对手币对'
+                },
+                {
+                    field: 'hedgeOrderSymbol',
+                    title: '对冲币对'
+                },
+
+                {
+                    field: 'hedgePlatform',
+                    title: '对冲平台'
+                },
+                {
+                    field: 'hedgeUserId',
+                    title: '对冲下单用户'
+                },
+                {
+                    field: 'hedgeSide',
+                    title: '对冲买卖方向'
+                },
+                {
+                    field: 'hedgeUpdateTime',
+                    title: '对冲订单更新时间',
+                     visible: false
+                },
+                {
+                    field: 'hedgeCreateTime',
+                    title: '对冲订单创建时间',
+                },
+                {
+                    field: 'hedgePrice',
+                    title: '对冲挂单价格'
+                },
+                {
+                    field: 'hedgeVolume',
+                    title: '对冲挂单总数量'
+                },
+                {
+                    field: 'hedgeFeeRateMaker',
+                    title: '对冲挂单手续费率',
+                     visible: false
+                },
+                {
+                    field: 'hedgeFeeRateTaker',
+                    title: '对冲吃单手续费率',
+                     visible: false
+                },
+                {
+                    field: 'hedgeFee',
+                    title: '对冲手续费'
+                },
+                {
+                    field: 'hedgeDealAvgPrice',
+                    title: '对冲成交均价'
+                },
+                {
+                    field: 'hedgeDealMoney',
+                    title: '对冲已成交金额'
+                },
+                {
+                    field: 'hedgeDealVolume',
+                    title: '对冲成交数量'
+                },
+                {
+                    field: 'hedgeStatus',
+                    title: '对冲订单状态'
+                },
+                {
+                    field: 'hedgeRes',
+                    title: '对冲结果数据',
+                     visible: false
+                },
+                {
+                    field: 'hedgeOrderDetail',
+                    title: '对冲订单详情',
+                     visible: false
+                },
+
+                {
+                    field: 'opponentSide',
+                    title: '对手买卖方向'
+                },
+                {
+                    field: 'opponentDealVolume',
+                    title: '对手成交数量'
+                },
+                {
+                    field: 'opponentDealMoney',
+                    title: '对手已成交金额'
+                },
+                {
+                    field: 'opponentAvgPrice',
+                    title: '对手成交均价'
+                },
+                {
+                    field: 'profit',
+                    title: '盈利'
+                },
+                {
+                    field: 'opponentCreateTime',
+                    title: '对手订单创建时间',
+                },
+                   {
+                    field: 'opponentOrderTable',
+                    title: '对手订单所在表'
+                },
+                {
+                    field: 'opponentOrderTableUniqueId',
+                    title: '对手订单所在表唯一ID'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.hedgeOrderId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.hedgeOrderId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+
+        initChildTable = function(index, row, $detail) {
+        var childTable = $detail.html('<table style="table-layout:fixed;width:50%"></table>').find('table');
+        $(childTable).bootstrapTable({
+            url: "/hedge/trade/list",
+            method: 'post',
+            sidePagination: "server",
+            contentType: "application/x-www-form-urlencoded",
+            queryParams : {
+                orderId: row.hedgeOrderId
+            },
+            columns: [
+                {
+                    field: 'tradeId',
+                    title: '成交ID'
+                },
+                {
+                    field: 'side',
+                    title: '买卖方向'
+                },
+                {
+                    field: 'price',
+                    title: '价格'
+                },
+                {
+                    field: 'qty',
+                    title: '数量'
+                },
+                {
+                    field: 'quoteQty',
+                    title: '成交金额'
+                },
+
+                {
+                    field: 'commission',
+                    title: '手续费'
+                },
+                    {
+                    field: 'time',
+                    title: '成交时间'
+                },
+                {
+                    field: 'commissionAsset',
+                    title: '手续费币种'
+                },
+            ]
+        });
+    };
+    </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hedge.mapper.ExHedgeOrderMapper">
+    
+    <resultMap type="ExHedgeOrder" id="ExHedgeOrderResult">
+        <result property="opponentOrderSymbol"    column="opponent_order_symbol"    />
+        <result property="hedgeOrderSymbol"    column="hedge_order_symbol"    />
+        <result property="hedgeOrderId"    column="hedge_order_id"    />
+        <result property="hedgePlatform"    column="hedge_platform"    />
+        <result property="hedgeUserId"    column="hedge_user_id"    />
+        <result property="hedgeSide"    column="hedge_side"    />
+        <result property="hedgeUpdateTime"    column="hedge_update_time"    />
+        <result property="hedgeCreateTime"    column="hedge_create_time"    />
+        <result property="hedgePrice"    column="hedge_price"    />
+        <result property="hedgeVolume"    column="hedge_volume"    />
+        <result property="hedgeFeeRateMaker"    column="hedge_fee_rate_maker"    />
+        <result property="hedgeFeeRateTaker"    column="hedge_fee_rate_taker"    />
+        <result property="hedgeFee"    column="hedge_fee"    />
+        <result property="hedgeDealAvgPrice"    column="hedge_deal_avg_price"    />
+        <result property="hedgeDealMoney"    column="hedge_deal_money"    />
+        <result property="hedgeDealVolume"    column="hedge_deal_volume"    />
+        <result property="hedgeStatus"    column="hedge_status"    />
+        <result property="hedgeRes"    column="hedge_res"    />
+        <result property="hedgeOrderDetail"    column="hedge_order_detail"    />
+        <result property="opponentOrderTable"    column="opponent_order_table"    />
+        <result property="opponentOrderTableUniqueId"    column="opponent_order_table_unique_id"    />
+        <result property="opponentSide"    column="opponent_side"    />
+        <result property="opponentDealVolume"    column="opponent_deal_volume"    />
+        <result property="opponentDealMoney"    column="opponent_deal_money"    />
+        <result property="opponentAvgPrice"    column="opponent_avg_price"    />
+        <result property="opponentCreateTime"    column="opponent_create_time"    />
+        <result column="profit" jdbcType="DECIMAL" property="profit" />
+    </resultMap>
+
+    <sql id="selectExHedgeOrderVo">
+        select opponent_order_symbol, hedge_order_symbol, hedge_order_id, hedge_platform, hedge_user_id, hedge_side, hedge_update_time, hedge_create_time, hedge_price, hedge_volume, hedge_fee_rate_maker, hedge_fee_rate_taker, hedge_fee, hedge_deal_avg_price, hedge_deal_money, hedge_deal_volume, hedge_status, hedge_res, hedge_order_detail, opponent_order_table, opponent_order_table_unique_id, opponent_side, opponent_deal_volume, opponent_deal_money, opponent_avg_price, opponent_create_time,profit from ex_hedge_order
+    </sql>
+
+    <select id="selectExHedgeOrderList" parameterType="ExHedgeOrder" resultMap="ExHedgeOrderResult">
+        <include refid="selectExHedgeOrderVo"/>
+        <where>  
+            <if test="opponentOrderSymbol != null  and opponentOrderSymbol != ''"> and opponent_order_symbol like concat('%', #{opponentOrderSymbol}, '%')</if>
+            <if test="hedgeOrderSymbol != null  and hedgeOrderSymbol != ''"> and hedge_order_symbol like concat('%', #{hedgeOrderSymbol}, '%')</if>
+            <if test="hedgePlatform != null  and hedgePlatform != ''"> and hedge_platform = #{hedgePlatform}</if>
+            <if test="hedgeUserId != null  and hedgeUserId != ''"> and hedge_user_id like concat('%', #{hedgeUserId}, '%')</if>
+            <if test="hedgeSide != null  and hedgeSide != ''"> and hedge_side = #{hedgeSide}</if>
+            <if test="hedgeUpdateTime != null "> and hedge_update_time = #{hedgeUpdateTime}</if>
+            <if test="hedgeCreateTime != null "> and hedge_create_time = #{hedgeCreateTime}</if>
+            <if test="hedgePrice != null "> and hedge_price = #{hedgePrice}</if>
+            <if test="hedgeVolume != null "> and hedge_volume = #{hedgeVolume}</if>
+            <if test="hedgeFeeRateMaker != null "> and hedge_fee_rate_maker = #{hedgeFeeRateMaker}</if>
+            <if test="hedgeFeeRateTaker != null "> and hedge_fee_rate_taker = #{hedgeFeeRateTaker}</if>
+            <if test="hedgeFee != null "> and hedge_fee = #{hedgeFee}</if>
+            <if test="hedgeDealAvgPrice != null "> and hedge_deal_avg_price = #{hedgeDealAvgPrice}</if>
+            <if test="hedgeDealMoney != null "> and hedge_deal_money = #{hedgeDealMoney}</if>
+            <if test="hedgeDealVolume != null "> and hedge_deal_volume = #{hedgeDealVolume}</if>
+            <if test="hedgeStatus != null  and hedgeStatus != ''"> and hedge_status = #{hedgeStatus}</if>
+            <if test="hedgeRes != null  and hedgeRes != ''"> and hedge_res = #{hedgeRes}</if>
+            <if test="hedgeOrderDetail != null  and hedgeOrderDetail != ''"> and hedge_order_detail = #{hedgeOrderDetail}</if>
+            <if test="opponentOrderTable != null  and opponentOrderTable != ''"> and opponent_order_table = #{opponentOrderTable}</if>
+            <if test="opponentOrderTableUniqueId != null "> and opponent_order_table_unique_id = #{opponentOrderTableUniqueId}</if>
+            <if test="opponentSide != null  and opponentSide != ''"> and opponent_side = #{opponentSide}</if>
+            <if test="opponentDealVolume != null "> and opponent_deal_volume = #{opponentDealVolume}</if>
+            <if test="opponentDealMoney != null "> and opponent_deal_money = #{opponentDealMoney}</if>
+            <if test="opponentAvgPrice != null "> and opponent_avg_price = #{opponentAvgPrice}</if>
+            <if test="opponentCreateTime != null "> and opponent_create_time = #{opponentCreateTime}</if>
+        </where>
+        order by hedge_create_time DESC
+    </select>
+    
+    <select id="selectExHedgeOrderByHedgeOrderId" parameterType="String" resultMap="ExHedgeOrderResult">
+        <include refid="selectExHedgeOrderVo"/>
+        where hedge_order_id = #{hedgeOrderId}
+    </select>
+        
+    <insert id="insertExHedgeOrder" parameterType="ExHedgeOrder">
+        insert into ex_hedge_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="opponentOrderSymbol != null">opponent_order_symbol,</if>
+            <if test="hedgeOrderSymbol != null and hedgeOrderSymbol != ''">hedge_order_symbol,</if>
+            <if test="hedgeOrderId != null">hedge_order_id,</if>
+            <if test="hedgePlatform != null">hedge_platform,</if>
+            <if test="hedgeUserId != null">hedge_user_id,</if>
+            <if test="hedgeSide != null and hedgeSide != ''">hedge_side,</if>
+            <if test="hedgeUpdateTime != null">hedge_update_time,</if>
+            <if test="hedgeCreateTime != null">hedge_create_time,</if>
+            <if test="hedgePrice != null">hedge_price,</if>
+            <if test="hedgeVolume != null">hedge_volume,</if>
+            <if test="hedgeFeeRateMaker != null">hedge_fee_rate_maker,</if>
+            <if test="hedgeFeeRateTaker != null">hedge_fee_rate_taker,</if>
+            <if test="hedgeFee != null">hedge_fee,</if>
+            <if test="hedgeDealAvgPrice != null">hedge_deal_avg_price,</if>
+            <if test="hedgeDealMoney != null">hedge_deal_money,</if>
+            <if test="hedgeDealVolume != null">hedge_deal_volume,</if>
+            <if test="hedgeStatus != null">hedge_status,</if>
+            <if test="hedgeRes != null">hedge_res,</if>
+            <if test="hedgeOrderDetail != null">hedge_order_detail,</if>
+            <if test="opponentOrderTable != null">opponent_order_table,</if>
+            <if test="opponentOrderTableUniqueId != null">opponent_order_table_unique_id,</if>
+            <if test="opponentSide != null">opponent_side,</if>
+            <if test="opponentDealVolume != null">opponent_deal_volume,</if>
+            <if test="opponentDealMoney != null">opponent_deal_money,</if>
+            <if test="opponentAvgPrice != null">opponent_avg_price,</if>
+            <if test="opponentCreateTime != null">opponent_create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="opponentOrderSymbol != null">#{opponentOrderSymbol},</if>
+            <if test="hedgeOrderSymbol != null and hedgeOrderSymbol != ''">#{hedgeOrderSymbol},</if>
+            <if test="hedgeOrderId != null">#{hedgeOrderId},</if>
+            <if test="hedgePlatform != null">#{hedgePlatform},</if>
+            <if test="hedgeUserId != null">#{hedgeUserId},</if>
+            <if test="hedgeSide != null and hedgeSide != ''">#{hedgeSide},</if>
+            <if test="hedgeUpdateTime != null">#{hedgeUpdateTime},</if>
+            <if test="hedgeCreateTime != null">#{hedgeCreateTime},</if>
+            <if test="hedgePrice != null">#{hedgePrice},</if>
+            <if test="hedgeVolume != null">#{hedgeVolume},</if>
+            <if test="hedgeFeeRateMaker != null">#{hedgeFeeRateMaker},</if>
+            <if test="hedgeFeeRateTaker != null">#{hedgeFeeRateTaker},</if>
+            <if test="hedgeFee != null">#{hedgeFee},</if>
+            <if test="hedgeDealAvgPrice != null">#{hedgeDealAvgPrice},</if>
+            <if test="hedgeDealMoney != null">#{hedgeDealMoney},</if>
+            <if test="hedgeDealVolume != null">#{hedgeDealVolume},</if>
+            <if test="hedgeStatus != null">#{hedgeStatus},</if>
+            <if test="hedgeRes != null">#{hedgeRes},</if>
+            <if test="hedgeOrderDetail != null">#{hedgeOrderDetail},</if>
+            <if test="opponentOrderTable != null">#{opponentOrderTable},</if>
+            <if test="opponentOrderTableUniqueId != null">#{opponentOrderTableUniqueId},</if>
+            <if test="opponentSide != null">#{opponentSide},</if>
+            <if test="opponentDealVolume != null">#{opponentDealVolume},</if>
+            <if test="opponentDealMoney != null">#{opponentDealMoney},</if>
+            <if test="opponentAvgPrice != null">#{opponentAvgPrice},</if>
+            <if test="opponentCreateTime != null">#{opponentCreateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateExHedgeOrder" parameterType="ExHedgeOrder">
+        update ex_hedge_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="opponentOrderSymbol != null">opponent_order_symbol = #{opponentOrderSymbol},</if>
+            <if test="hedgeOrderSymbol != null and hedgeOrderSymbol != ''">hedge_order_symbol = #{hedgeOrderSymbol},</if>
+            <if test="hedgePlatform != null">hedge_platform = #{hedgePlatform},</if>
+            <if test="hedgeUserId != null">hedge_user_id = #{hedgeUserId},</if>
+            <if test="hedgeSide != null and hedgeSide != ''">hedge_side = #{hedgeSide},</if>
+            <if test="hedgeUpdateTime != null">hedge_update_time = #{hedgeUpdateTime},</if>
+            <if test="hedgeCreateTime != null">hedge_create_time = #{hedgeCreateTime},</if>
+            <if test="hedgePrice != null">hedge_price = #{hedgePrice},</if>
+            <if test="hedgeVolume != null">hedge_volume = #{hedgeVolume},</if>
+            <if test="hedgeFeeRateMaker != null">hedge_fee_rate_maker = #{hedgeFeeRateMaker},</if>
+            <if test="hedgeFeeRateTaker != null">hedge_fee_rate_taker = #{hedgeFeeRateTaker},</if>
+            <if test="hedgeFee != null">hedge_fee = #{hedgeFee},</if>
+            <if test="hedgeDealAvgPrice != null">hedge_deal_avg_price = #{hedgeDealAvgPrice},</if>
+            <if test="hedgeDealMoney != null">hedge_deal_money = #{hedgeDealMoney},</if>
+            <if test="hedgeDealVolume != null">hedge_deal_volume = #{hedgeDealVolume},</if>
+            <if test="hedgeStatus != null">hedge_status = #{hedgeStatus},</if>
+            <if test="hedgeRes != null">hedge_res = #{hedgeRes},</if>
+            <if test="hedgeOrderDetail != null">hedge_order_detail = #{hedgeOrderDetail},</if>
+            <if test="opponentOrderTable != null">opponent_order_table = #{opponentOrderTable},</if>
+            <if test="opponentOrderTableUniqueId != null">opponent_order_table_unique_id = #{opponentOrderTableUniqueId},</if>
+            <if test="opponentSide != null">opponent_side = #{opponentSide},</if>
+            <if test="opponentDealVolume != null">opponent_deal_volume = #{opponentDealVolume},</if>
+            <if test="opponentDealMoney != null">opponent_deal_money = #{opponentDealMoney},</if>
+            <if test="opponentAvgPrice != null">opponent_avg_price = #{opponentAvgPrice},</if>
+            <if test="opponentCreateTime != null">opponent_create_time = #{opponentCreateTime},</if>
+        </trim>
+        where hedge_order_id = #{hedgeOrderId}
+    </update>
+
+    <delete id="deleteExHedgeOrderByHedgeOrderId" parameterType="String">
+        delete from ex_hedge_order where hedge_order_id = #{hedgeOrderId}
+    </delete>
+
+    <delete id="deleteExHedgeOrderByHedgeOrderIds" parameterType="String">
+        delete from ex_hedge_order where hedge_order_id in 
+        <foreach item="hedgeOrderId" collection="array" open="(" separator="," close=")">
+            #{hedgeOrderId}
+        </foreach>
+    </delete>
+
+</mapper>

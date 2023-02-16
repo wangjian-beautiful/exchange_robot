@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="cache-control" content="no-cache,no-store, must-revalidate"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <title>Table</title>
+    <link rel="stylesheet" href="../webjars/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../webjars/css/global.css" media="all"/>
+    <link rel="stylesheet" href="../webjars/plugins/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../webjars/css/table.css"/>
+</head>
+<body>
+<div class="admin-main" templateLoad="" onFinishCallback="onFinishCallback">
+    <form class="layui-form" method="post">
+        <input type="hidden" name="id" bindAttr="id"/>
+        <input type="hidden" name="createTime" bindAttr="createTime"/>
+
+        <fieldset class="layui-elem-field">
+            <div class="layui-field-box layui-form">
+                <legend class="legend">经常调整参数</legend>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">交易间隔（毫秒）</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="duration" name="duration" class="layui-input" placeholder="请输入交易间隔" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">主动下单的价格波动</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="activeWavePrice" name="activeWavePrice" class="layui-input" placeholder="请输入价格波动，主动下单" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">主动下单的时间间隔（毫秒）</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="activeDuration" name="activeDuration" class="layui-input" placeholder="请输入主动下单的时间间隔（毫秒）" lay-verify="required"/>
+                    </div>
+                </div>
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">盘口刷新时间(秒)</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" bindAttr="refreshTime" name="refreshTime" class="layui-input" placeholder="请输入交易对盘口整理时间" lay-verify="required"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">盘口纵深数量</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="priceCount" name="priceCount" class="layui-input" placeholder="请输入交易对盘口纵深数量（例如20 trade刷量机器人时配置）" lay-verify="required"/>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">买卖一档与行情价间隔</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="level1PriceGap" name="level1PriceGap" class="layui-input" placeholder="请输入买卖一档与行情价间隔" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">盘口价格间隔</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="handicapPriceGap" name="handicapPriceGap" class="layui-input" placeholder="默认为1" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">深度图形状</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="handicapShape" name="handicapShape" class="layui-input" placeholder="0表示抛物线形，1表示线性，2-3档加量，3-5档加量，4-7档加量，5-9档加量，默认为0" lay-verify="required"/>
+                    </div>
+                </div>
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">交易员ID</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" bindAttr="traderids" name="traderids" class="layui-input" placeholder="请输入波动率机器人关注的交易员ID，用英文逗号分隔" lay-verify="required"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">交易员挂单总额的阀值</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" bindAttr="threshold" name="threshold" class="layui-input" placeholder="请输入交易员挂单总额的阀值" lay-verify="required"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">拉盘盘口价格档位</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" bindAttr="handicapCount" name="handicapCount" class="layui-input" placeholder="请输入机器人关注的盘口价格档位" lay-verify="required"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">盘口单随机数最小值</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="randomBegin" name="randomBegin" class="layui-input" placeholder="robot新盘口配置，默认为0" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">盘口单随机数最大值</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="randomEnd" name="randomEnd" class="layui-input" placeholder="robot新盘口配置，默认为1" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">盘口下单的随机数倍数</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="handicapRandomFold" name="handicapRandomFold" class="layui-input" placeholder="robot新盘口配置，价格档位下单数量随机数乘以的倍数，默认为1，盘口挂单数成比例变化" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">K线下单的随机数倍数</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="klineRandomFold" name="klineRandomFold" class="layui-input" placeholder="robot新盘口配置，K线下单随机数倍数，默认为1，实时成交量成比例变化" lay-verify="required"/>
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="frm">保存</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-elem-field">
+            <div class="layui-field-box layui-form">
+                <legend class="legend">偶尔调整参数</legend>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">accessKey</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="accessKey" name="accessKey" class="layui-input" placeholder="请输入用户accessKey" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">securityKey</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="securityKey" name="securityKey" class="layui-input" placeholder="请输入用户securitykey" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">跟随类型</label>
+                    <div class="layui-input-block">
+                        <div id="followTypeView"></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">跟随交易所</label>
+                    <div class="layui-input-block">
+                        <div id="followMarketView"></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">当前交易对</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="currency" name="currency" class="layui-input" placeholder="请输入当前交易对" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">交易对别名（内部）</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="currencyAlias" name="currencyAlias" class="layui-input" placeholder="交易对别名（内部）" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">跟随交易对</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="currencyTrail" name="currencyTrail" class="layui-input" placeholder="请输入跟随的交易对" lay-verify=""/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-block">
+                        <div id="statusView"></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">机器人类型</label>
+                    <div class="layui-input-block">
+                        <div id="typeView"></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">波动率</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="fluctuationRatio" name="fluctuationRatio" class="layui-input" placeholder="请输入波动率" lay-verify=""/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">机器人用户ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="fuid" name="fuid" class="layui-input" placeholder="请输入机器人用户ID（在业务系统中的用户ID）" lay-verify="required"/>
+                    </div>
+                </div>
+
+            </div>
+        </fieldset>
+
+
+        <fieldset class="layui-elem-field">
+            <div class="layui-field-box layui-form">
+                <legend class="legend">不用调整参数</legend>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">交易下单最大价格(自动获取)</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="maxPrice" name="maxPrice" class="layui-input" placeholder="请输入交易最大价格" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">交易下单最小价格(自动获取)</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="minPrice" name="minPrice" class="layui-input" placeholder="请输入交易最小价格" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">开始时间（小时）</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="startTime" name="startTime" class="layui-input" placeholder="请输入开始时间" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">持续时间（小时）</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="endTime" name="endTime" class="layui-input" placeholder="请输入持续时间" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">服务编号</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="serverIndex" name="serverIndex" class="layui-input" placeholder="请输入币队需要在哪台机器人服务执行" lay-verify="required"/>
+                    </div>
+                </div>
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">K线机器人下单倍率（默认2）</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="text" bindAttr="klineFold" name="klineFold" class="layui-input" placeholder="K线机器人下单倍率" lay-verify="required"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">交易API地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="serverUrl" name="serverUrl" class="layui-input" placeholder="请输入交易API地址" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="userName" name="userName" class="layui-input" placeholder="请输入用户名" lay-verify="required"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="password" name="password" class="layui-input" placeholder="请输入密码" lay-verify="required"/>
+                    </div>
+                </div>
+
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">价格比例</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="text" bindAttr="priceTrailScale" name="priceTrailScale" class="layui-input" placeholder="请输入跟随交易对价格比例" lay-verify="required"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">数量比例</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="text" bindAttr="countTrailScale" name="countTrailScale" class="layui-input" placeholder="请输入跟随交易对数量比例" lay-verify="required"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">交易所备注</label>
+                    <div class="layui-input-block">
+                        <input type="text" bindAttr="channel" name="channel" class="layui-input" placeholder="请输入交易所备注" lay-verify=""/>
+                    </div>
+                </div>
+
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">交易最大量</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="text" bindAttr="maxAmount" name="maxAmount" class="layui-input" placeholder="请输入交易最大量" lay-verify="required"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">交易最小量</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="text" bindAttr="minAmount" name="minAmount" class="layui-input" placeholder="请输入交易最小量" lay-verify="required"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">交易对盘口密度间隔</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="text" bindAttr="priceInterval" name="priceInterval" class="layui-input" placeholder="交易对盘口密度间隔（例如1 trade刷量机器人时配置）"-->
+                               <!--lay-verify="required"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">robot盘口配置类型</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="text" bindAttr="handicapType" name="handicapType" class="layui-input" placeholder="robot盘口配置类型，0表示旧盘口配置参数生效，1表示新盘口配置参数生效" lay-verify="required"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+            </div>
+        </fieldset>
+
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="frm">保存</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<!--状态模板-->
+<script id="status" type="text/html">
+    <select name="status" lay-verify="required">
+        <option value="">-----请选择-----</option>
+        {{# layui.each(d, function(index, item){ }}
+        <option value="{{ item.value }}" {{# if(item.selected){ }} selected="selected" {{# } }}>{{ item.text }}
+        </option>
+        {{# }); }}
+    </select>
+</script>
+<!--跟随类型模板-->
+<script id="followType" type="text/html">
+    <select name="followType" lay-verify="required">
+        <option value="">-----请选择-----</option>
+        {{# layui.each(d, function(index, item){ }}
+        <option value="{{ item.value }}" {{# if(item.selected){ }} selected="selected" {{# } }}>{{ item.text }}
+        </option>
+        {{# }); }}
+    </select>
+</script>
+<!--跟随交易所模板-->
+<script id="followMarket" type="text/html">
+    <select name="followMarket" lay-verify="required">
+        <option value="">-----请选择-----</option>
+        {{# layui.each(d, function(index, item){ }}
+        <option value="{{ item.value }}" {{# if(item.selected){ }} selected="selected" {{# } }}>{{ item.text }}
+        </option>
+        {{# }); }}
+    </select>
+</script>
+<!--机器人类型模板-->
+<script id="type" type="text/html">
+    <select name="type" lay-verify="required">
+        <option value="">-----请选择-----</option>
+        {{# layui.each(d, function(index, item){ }}
+        <option value="{{ item.value }}" {{# if(item.selected){ }} selected="selected" {{# } }}>{{ item.text }}
+        </option>
+        {{# }); }}
+    </select>
+</script>
+
+<script type="text/javascript" src="../webjars/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="../webjars/js/common.js?v20180420"></script>
+<script type="text/javascript">
+    // 下拉分类
+    function onFinishCallback() {
+        var $ = layui.jquery;
+        var id = $("input[name='id']").val();
+
+        $.getJSON('/tradeSchedule/getSelect?id=' + id, function (res) {
+            console.log(res);
+            layui.laytpl($('#status').html()).render(res.data.status, function (html) {
+                $('#statusView').html(html);
+            });
+            layui.laytpl($('#followType').html()).render(res.data.followType, function (html) {
+                $('#followTypeView').html(html);
+            });
+            layui.laytpl($('#followMarket').html()).render(res.data.followMarket, function (html) {
+                $('#followMarketView').html(html);
+            });
+            layui.laytpl($('#type').html()).render(res.data.type, function (html) {
+                $('#typeView').html(html);
+            });
+
+            layui.form().render();
+            $("input[name='startTime']").val(res.data.startTime);
+            // $("input[name='priceInterval']").val(res.data.priceInterval);
+        });
+    }
+
+    layui.use(['layer', 'laytpl', 'form'], function () {
+        var $ = layui.jquery, form = layui.form();
+        //监听提交
+        form.on('submit(frm)', function (data) {
+            layer.confirm('确认保存?', function (index) {
+                var loading = layer.load();
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    url: '/tradeSchedule/operate',
+                    contentType: "application/json",
+                    data: JSON.stringify(data.field),
+                    complete: function () {
+                        layer.close(loading);
+                    },
+                    success: function (data) {
+                        if (data.code == 200) {
+                            layer.msg(data.msg, {time: 1500}, function () {
+                                parent.layer.closeAll();
+                                parent.window.location.reload();
+                            });
+                        } else {
+                            layer.msg(data.msg, {
+                                icon: 5
+                            });
+                        }
+                    },
+                    error: function (xhr, type) {
+                        layer.msg('请求异常请稍后重试', {shift: 6});
+                    }
+                });
+            });
+            return false;
+        });
+    });
+</script>

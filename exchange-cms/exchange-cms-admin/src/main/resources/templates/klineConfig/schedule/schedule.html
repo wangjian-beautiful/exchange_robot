@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('K线机器人配置列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+<!--                            <li>-->
+<!--                                <label>用户access_key：</label>-->
+<!--                                <input type="text" name="accessKey"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <label>用户security_key：</label>-->
+<!--                                <input type="text" name="securityKey"/>-->
+<!--                            </li>-->
+                            <li>
+                                <label>交易对：</label>
+                                <input type="text" name="currency"/>
+                            </li>
+                            <li>
+                                <label>交易对别名：</label>
+                                <input type="text" name="currencyAlias"/>
+                            </li>
+                            <li>
+                                <label>执行的服务编号：</label>
+                                <input type="text" name="serverIndex"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="klineConfig:schedule:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.editTab()" shiro:hasPermission="klineConfig:schedule:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="klineConfig:schedule:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="klineConfig:schedule:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('klineConfig:schedule:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('klineConfig:schedule:remove')}]];
+        var prefix = ctx + "klineConfig/schedule";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "K线机器人配置",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'id',
+                    title: 'ID',
+                    visible: false
+                },
+                {
+                    field: 'accessKey',
+                    title: '用户access_key',
+                     visible: false
+                },
+                {
+                    field: 'securityKey',
+                    title: '用户security_key',
+                     visible: false
+                },
+                {
+                    field: 'currency',
+                    title: '交易对'
+                },
+                {
+                    field: 'currencyAlias',
+                    title: '交易对别名'
+                },
+                {
+                    field: 'currencyTrail',
+                    title: '跟随的交易对'
+                },
+                {
+                    field: 'status',
+                    title: '状态'
+                },
+                {
+                    field: 'type',
+                    title: '类型'
+                },
+                {
+                    field: 'followType',
+                    title: '跟随类型 '
+                },
+                {
+                    field: 'followMarket',
+                    title: '跟随交易所类型'
+                },
+                {
+                    field: 'fluctuationRatio',
+                    title: '波动率'
+                },
+                {
+                    field: 'duration',
+                    title: '交易间隔'
+                },
+                {
+                    field: 'handicapPriceGap',
+                    title: '盘口价格间隔;'
+                },
+                {
+                    field: 'level1PriceGap',
+                    title: '买卖一档与行情价间隔'
+                },
+                {
+                    field: 'activeWavePrice',
+                    title: '价格波动，主动下单'
+                },
+                {
+                    field: 'activeDuration',
+                    title: '主动下单的时间间隔'
+                },
+                {
+                    field: 'endTime',
+                    title: '交易持续时间'
+                },
+                {
+                    field: 'password',
+                    title: '密码配置'
+                },
+                {
+                    field: 'serverUrl',
+                    title: '交易API地址'
+                },
+                {
+                    field: 'startTime',
+                    title: '开始时间'
+                },
+                {
+                    field: 'userName',
+                    title: '用户名'
+                },
+                {
+                    field: 'minPrice',
+                    title: '最低价格'
+                },
+                {
+                    field: 'maxPrice',
+                    title: '最高价格'
+                },
+                {
+                    field: 'channel',
+                    title: '交易所备注'
+                },
+                {
+                    field: 'fuid',
+                    title: '机器人用户ID'
+                },
+                {
+                    field: 'priceCount',
+                    title: '交易对盘口纵深数量'
+                },
+                {
+                    field: 'handicapRandomFold',
+                    title: '下单数量随机数乘以的倍数'
+                },
+
+                {
+                    field: 'randomBegin',
+                    title: '随机数区间的开始值'
+                },
+                {
+                    field: 'randomEnd',
+                    title: '随机数区间的结束值'
+                },
+                {
+                    field: 'klineRandomFold',
+                    title: 'K线下单随机数倍数'
+                },
+
+                {
+                    field: 'serverIndex',
+                    title: '执行的服务编号'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.editTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

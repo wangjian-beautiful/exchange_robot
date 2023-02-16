@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="cache-control" content="no-cache,no-store, must-revalidate"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <title>Table</title>
+    <link rel="stylesheet" href="../webjars/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../webjars/css/global.css" media="all">
+    <link rel="stylesheet" href="../webjars/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../webjars/css/table.css"/>
+</head>
+
+<body>
+<div class="admin-main">
+    <blockquote class="layui-elem-quote">
+        <a href="javascript:;" class="layui-btn layui-btn-small J_iframe_dialog" data-title="新增配置" data-url="edit.html?dataloadurl=/tradeSchedule/0">
+            <i class="layui-icon">&#xe654;</i>新增配置
+        </a>
+    </blockquote>
+    <fieldset class="layui-elem-field">
+        <legend>配置列表</legend>
+        <div class="layui-field-box layui-form">
+            <table class="layui-table admin-table">
+                <thead>
+                <tr>
+                    <th width="3%">序号</th>
+                    <th width="4%">交易对</th>
+                    <th width="4%">跟随交易对</th>
+                    <th width="6%">跟随类型</th>
+                    <th width="6%">跟随交易所类型</th>
+                    <!--<th width="5%">跟随价格比例</th>-->
+                    <!--<th width="5%">跟随数量比例</th>-->
+                    <th width="4%">服务编号</th>
+                    <th width="4%">波动率</th>
+                    <th width="5%">交易间隔(秒)</th>
+                    <th width="6%">开始时间(小时)</th>
+                    <th width="6%">持续时间(小时)</th>
+                    <!--<th width="5%">交易最大量</th>-->
+                    <!--<th width="5%">交易最小量</th>-->
+                    <th width="6%">下单状态</th>
+                    <th width="3%">类型</th>
+                    <th width="8%">创建时间</th>
+                    <th width="8%">更新时间</th>
+                    <th width="8%">操作</th>
+                </tr>
+                </thead>
+                <tbody id="content" templateLoad="/tradeSchedule/list" template-id="list_tpl"></tbody>
+            </table>
+        </div>
+    </fieldset>
+</div>
+</body>
+</html>
+<!--模板-->
+<script type="text/html" id="list_tpl">
+    {{# layui.each(d, function(index, item){ }}
+    <tr>
+        <td align="center">{{ index+1 }}</td>
+        <td>{{ item.currency }}</td>
+        <td>{{ item.currencyTrail }}</td>
+        <td>{{ item.followTypeString }}</td>
+        <td>{{ item.followMarketString }}</td>
+        <!--<td align="right">{{ item.priceTrailScale}}</td>-->
+        <!--<td align="right">{{ item.countTrailScale }}</td>-->
+        <td align="right">{{ item.serverIndex }}</td>
+        <td align="right">{{ item.fluctuationRatio }}</td>
+        <td align="right">{{ item.duration }}</td>
+        <td align="right">{{ item.startTime }}</td>
+        <td align="right">{{ item.endTime }}</td>
+        <!--<td align="right">{{ item.maxAmount }}</td>-->
+        <!--<td align="right">{{ item.minAmount }}</td>-->
+        <td>{{ item.statusString}}</td>
+        <td>{{ item.type }}</td>
+        <td>{{ item.createTime }}</td>
+        <td>{{ item.updateTime }}</td>
+        <td align="center">
+            <a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-mini J_confirmurl"
+               act-url="/tradeSchedule/delete/{{ item.id }}">删除</a>
+            <a href="javascript:;" class="layui-btn layui-btn-mini J_iframe_dialog" data-title="编辑配置"
+               data-url="edit.html?dataloadurl=/tradeSchedule/{{ item.id }}">编辑</a>
+        </td>
+    </tr>
+    {{# }); }}
+</script>
+<script type="text/javascript" src="../webjars/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="../webjars/js/common.js?v20180420"></script>

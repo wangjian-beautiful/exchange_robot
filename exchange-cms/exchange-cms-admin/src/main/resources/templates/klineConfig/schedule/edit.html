@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改K线机器人配置')" />
+</head>
+<body class="white-bg">
+<form class="form-horizontal m" id="form-schedule-edit" th:object="${tradeSchedule}">
+<div class="row">
+    <div class="col-xs-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content" style="border-style:none;">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab-basic" data-toggle="tab" aria-expanded="false">经常调整参数</a></li>
+                        <li ><a href="#tab-field" data-toggle="tab" aria-expanded="false">偶尔调整参数</a></li>
+                        <li><a href="#tab-gen" data-toggle="tab" aria-expanded="false">不用调整参数</a></li>
+                    </ul>
+
+                        <input name="id" th:field="*{id}" type="hidden">
+                        <div class="tab-content">
+                            <!-- 经常调整参数 -->
+                            <div class="tab-pane active" id="tab-basic">
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">交易间隔（毫秒）：</label>
+                                            <div class="col-sm-8">
+                                                <input name="duration" th:field="*{duration}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">主动下单的价格波动：</label>
+                                            <div class="col-sm-8">
+                                                <input name="activeWavePrice" th:field="*{activeWavePrice}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">主动下单的时间间隔：</label>
+                                            <div class="col-sm-8">
+                                                <input name="activeDuration" th:field="*{activeDuration}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">盘口纵深数量：</label>
+                                            <div class="col-sm-8">
+                                                <input name="priceCount" th:field="*{priceCount}" placeholder="请输入交易对盘口纵深数量（例如20 trade刷量机器人时配置）"  class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">买卖一档与行情价间隔：</label>
+                                            <div class="col-sm-8">
+                                                <input name="level1PriceGap" th:field="*{level1PriceGap}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">盘口价格间隔：</label>
+                                            <div class="col-sm-8">
+                                                <input name="handicapPriceGap" th:field="*{handicapPriceGap}"  placeholder="默认为1" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">深度图形状：</label>
+                                            <div class="col-sm-8">
+                                                <input name="handicapShape" th:field="*{handicapShape}" placeholder="0表示抛物线形，1表示线性，2-3档加量，3-5档加量，4-7档加量，5-9档加量，默认为0" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">盘口单随机数最小值：</label>
+                                            <div class="col-sm-8">
+                                                <input name="randomBegin" th:field="*{randomBegin}" placeholder="robot新盘口配置，默认为0" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">盘口单随机数最大值：</label>
+                                            <div class="col-sm-8">
+                                                <input name="randomEnd" th:field="*{randomEnd}"  placeholder="robot新盘口配置，默认为1" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">盘口下单的随机数倍数：</label>
+                                            <div class="col-sm-8">
+                                                <input name="handicapRandomFold" placeholder="robot新盘口配置，价格档位下单数量随机数乘以的倍数，默认为1，盘口挂单数成比例变化"  th:field="*{handicapRandomFold}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">K线下单的随机数倍数：</label>
+                                            <div class="col-sm-8">
+                                                <input name="klineRandomFold" th:field="*{klineRandomFold}"   placeholder="robot新盘口配置，K线下单随机数倍数，默认为1，实时成交量成比例变化"class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 偶尔调整参数 -->
+                            <div class="tab-pane" id="tab-field">
+                                <div class="row mt20">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">用户access_key：</label>
+                                            <div class="col-sm-8">
+                                                <input name="accessKey" th:field="*{accessKey}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">用户security_key：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{securityKey}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">跟随类型：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{followType}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">跟随交易所：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{followMarket}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">当前交易对：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{currency}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">交易对别名（内部）：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{currencyAlias}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">跟随交易对：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{currencyTrail}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">状态：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{status}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">机器人类型：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{type}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">波动率：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{fluctuationRatio}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">机器人用户ID：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{fuid}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 不用调整参数 -->
+                            <div class="tab-pane" id="tab-gen">
+                                <div class="row mt20">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">交易下单最大价格(自动获取)：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{maxPrice}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">交易下单最小价格(自动获取)：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{minPrice}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">开始时间（小时）：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{startTime}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">持续时间（小时）：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{endTime}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">服务编号：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{serverIndex}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">交易API地址：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{serverUrl}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">用户名：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{userName}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">密码：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{password}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">交易所备注：</label>
+                                            <div class="col-sm-8">
+                                                <input name="securityKey" th:field="*{channel}" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="col-sm-offset-5 col-sm-6">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存</button>&nbsp;
+                    <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "klineConfig/schedule";
+        $("#form-schedule-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.saveTab(prefix + "/edit", $('#form-schedule-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

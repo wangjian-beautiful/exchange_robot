@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改对冲机器人配置')" />
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-config-edit" th:object="${hedgeRobotConfig}">
+        <input name="id" th:field="*{id}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">币对：</label>
+            <div class="col-sm-8">
+                <input name="symbol" th:field="*{symbol}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">金币所币对：</label>
+            <div class="col-sm-8">
+                <input name="symbol" th:field="*{symbolBjs}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">交易平台：</label>
+            <div class="col-sm-9">
+                <select  class="form-control" name="tradePlatform" >
+                    <option th:selected ="*{tradePlatform == '币安'}" value="币安">币安</option>
+                    <option th:selected ="*{tradePlatform == '抹茶'}" value="抹茶">抹茶</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">下单类型：</label>
+            <div class="col-sm-9">
+                <select  class="form-control" name="binanceOrderType" >
+                    <option th:selected ="*{binanceOrderType == 'LIMIT'}" value="LIMIT">限价</option>
+                    <option th:selected ="*{binanceOrderType == 'MARKET'}" value="MARKET">市价</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单方式：</label>
+            <div class="col-sm-9">
+                <select  class="form-control" name="timeInForceStatus">
+                    <option th:selected ="*{timeInForceStatus == 'GTC'}" value="GTC">成交为止</option>
+                    <option th:selected ="*{timeInForceStatus == 'IOC'}" value="IOC">无法立即成交的部分就撤销</option>
+                    <option th:selected ="*{timeInForceStatus == 'FOK'}" value="FOK">无法全部立即成交就撤销</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">启动状态：</label>
+            <div class="col-sm-9">
+                <label class="radio-box">
+                    <input type="radio" th:field="*{status}" value="START" id="optionsRadios1" name="status">正常</label>
+                <label class="radio-box">
+                    <input type="radio" th:field="*{status}" value="STOP" id="optionsRadios2" name="status">停用</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">对冲阈值：</label>
+            <div class="col-sm-8">
+                <input name="hedgeOut" th:field="*{hedgeOut}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">对赌量：</label>
+            <div class="col-sm-8">
+                <input readonly="readonly"  th:field="*{betting}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">手机号；多个用英文逗号分割,国家号用空格分割：</label>
+            <div class="col-sm-8">
+                <input name="mobile" th:field="*{mobile}" class="form-control" type="text">
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+        var prefix = ctx + "hedge/config";
+        $("#form-config-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-config-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

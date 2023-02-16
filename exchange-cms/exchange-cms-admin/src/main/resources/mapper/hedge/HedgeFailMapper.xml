@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hedge.mapper.HedgeFailMapper">
+    
+    <resultMap type="HedgeFail" id="HedgeFailResult">
+        <result property="id"    column="id"    />
+        <result property="symbol"    column="symbol"    />
+        <result property="price"    column="price"    />
+        <result property="volume"    column="volume"    />
+        <result property="mqMessage"    column="mq_message"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="error"    column="error"    />
+    </resultMap>
+
+    <sql id="selectHedgeFailVo">
+        select id, symbol, price, volume, mq_message, create_time, error from hedge_fail
+    </sql>
+
+    <select id="selectHedgeFailList" parameterType="HedgeFail" resultMap="HedgeFailResult">
+        <include refid="selectHedgeFailVo"/>
+        <where>  
+            <if test="symbol != null  and symbol != ''"> and symbol = #{symbol}</if>
+            <if test="price != null "> and price &gt;= #{price}</if>
+            <if test="volume != null "> and volume &gt;= #{volume}</if>
+            <if test="mqMessage != null  and mqMessage != ''"> and mq_message like concat('%', #{mqMessage}, '%')</if>
+            <if test="createTime != null "> and create_time &gt;= #{createTime}</if>
+            <if test="error != null  and error != ''"> and error like concat('%', #{error}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectHedgeFailById" parameterType="Long" resultMap="HedgeFailResult">
+        <include refid="selectHedgeFailVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHedgeFail" parameterType="HedgeFail" useGeneratedKeys="true" keyProperty="id">
+        insert into hedge_fail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="symbol != null">symbol,</if>
+            <if test="price != null">price,</if>
+            <if test="volume != null">volume,</if>
+            <if test="mqMessage != null">mq_message,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="error != null">error,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="symbol != null">#{symbol},</if>
+            <if test="price != null">#{price},</if>
+            <if test="volume != null">#{volume},</if>
+            <if test="mqMessage != null">#{mqMessage},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="error != null">#{error},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHedgeFail" parameterType="HedgeFail">
+        update hedge_fail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="symbol != null">symbol = #{symbol},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="volume != null">volume = #{volume},</if>
+            <if test="mqMessage != null">mq_message = #{mqMessage},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="error != null">error = #{error},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHedgeFailById" parameterType="Long">
+        delete from hedge_fail where id = #{id}
+    </delete>
+
+    <delete id="deleteHedgeFailByIds" parameterType="String">
+        delete from hedge_fail where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

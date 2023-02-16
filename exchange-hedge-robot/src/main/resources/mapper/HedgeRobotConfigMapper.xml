@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjs.hedge.crud.dao.robot.ExHedgeTradeMapper.HedgeRobotConfigMapper">
+  <resultMap id="BaseResultMap" type="com.bjs.hedge.crud.model.HedgeRobotConfig">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="symbol" jdbcType="VARCHAR" property="symbol" />
+    <result column="symbol_bjs" jdbcType="VARCHAR" property="symbolBjs" />
+    <result column="trade_platform" jdbcType="VARCHAR" property="tradePlatform" />
+    <result column="binance_order_type" jdbcType="CHAR" property="binanceOrderType" />
+    <result column="time_in_force_status" jdbcType="CHAR" property="timeInForceStatus" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="hedge_out" jdbcType="DECIMAL" property="hedgeOut" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="betting" jdbcType="DECIMAL" property="betting" />
+  </resultMap>
+</mapper>

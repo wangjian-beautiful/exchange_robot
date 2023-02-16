@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('对冲机器人配置列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>币对：</label>
+                                <input type="text" name="symbol"/>
+                            </li>
+                            <li>
+                                <label>金币所币对：</label>
+                                <input type="text" name="symbolBjs"/>
+                            </li>
+                            <li>
+                                <label>手机号</label>
+                                <input type="text" name="mobile"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="hedge:config:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="hedge:config:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="hedge:config:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="hedge:config:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('hedge:config:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('hedge:config:remove')}]];
+        var prefix = ctx + "hedge/config";
+
+        var datas = [[${@dict.getType('sys_normal_disable')}]];
+        var statusMapping = {START:0,STOP:1}
+        var binanceOrderTypeItem = {LIMIT:'限价',MARKET:'市价'}
+        var timeinForceStatusItem = {GTC:'成交为止',IOC:'无法立即成交的部分就撤销',FOK:'无法全部立即成交就撤销'}
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "对冲机器人配置",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'id',
+                    title: '',
+                    visible: false
+                },
+                {
+                    field: 'symbol',
+                    title: '币对'
+                },
+                {
+                    field: 'symbolBjs',
+                    title: '金币所币对'
+                },
+                  {
+                    field: 'tradePlatform',
+                    title: '交易平台'
+                },
+                {
+                    field: 'binanceOrderType',
+                    title: '下单类型',
+                     formatter:function(text){
+                        console.info('text',text)
+                      return binanceOrderTypeItem[text]
+                    }
+                },
+                {
+                    field: 'timeInForceStatus',
+                    title: '下单方式',
+                    formatter: function(value, row, index) {
+                        return timeinForceStatusItem[value];
+                    }
+                },
+                {
+                    field: 'status',
+                    title: '状态',
+                    formatter: function(value, row, index) {
+                        return $.table.selectDictLabel(datas, statusMapping[value]);
+                    }
+                },
+                  {
+                    field: 'hedgeOut',
+                    title: '对冲阈值'
+                },
+                {
+                    field: 'betting',
+                    title: '对赌量'
+                },
+                {
+                    field: 'mobile',
+                    title: '手机号'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

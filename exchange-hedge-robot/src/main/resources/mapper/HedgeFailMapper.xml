@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjs.hedge.crud.dao.robot.HedgeFailMapper">
+  <resultMap id="BaseResultMap" type="com.bjs.hedge.crud.model.HedgeFail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="symbol" jdbcType="VARCHAR" property="symbol" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="volume" jdbcType="DECIMAL" property="volume" />
+    <result column="mq_message" jdbcType="VARCHAR" property="mqMessage" />
+    <result column="error" jdbcType="LONGVARCHAR" property="error" />
+  </resultMap>
+</mapper>
